@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: __AppName__
+spec:
+  template:
+    metadata:
+      labels:
+        app: __AppName__
+    spec:
+      containers:
+      - name: __AppName__
+        image: __ACR__/__ImageName__:__buildversion__
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: __SecretName__   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __AppName__
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: __AppName__
